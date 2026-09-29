@@ -9,7 +9,7 @@ public class MatchManager : MonoBehaviour
     private int player1Rounds = 0;
     private int player2Rounds = 0;
 
-    public int pointsToWinRound = 10;
+    public int pointsToWinRound = 5;
     public int roundsToWinMatch = 2;
 
     public Bull ball;
@@ -27,6 +27,13 @@ public class MatchManager : MonoBehaviour
 
     void Start()
     {
+        player1Score = 0;
+        player2Score = 0;
+        player1Rounds = 0;
+        player2Rounds = 0;
+
+        gameOver = false;
+
         winnerText.text = "";
 
         restartButton.SetActive(false);
@@ -36,6 +43,8 @@ public class MatchManager : MonoBehaviour
 
         Time.timeScale = 0f;
 
+        StopBall();
+
         UpdateScoreText();
         UpdateRoundsText();
     }
@@ -43,6 +52,21 @@ public class MatchManager : MonoBehaviour
     public void StartGame()
     {
         startPanel.SetActive(false);
+
+        player1Score = 0;
+        player2Score = 0;
+        player1Rounds = 0;
+        player2Rounds = 0;
+
+        gameOver = false;
+
+        winnerText.text = "";
+
+        restartButton.SetActive(false);
+        exitButton.SetActive(false);
+
+        UpdateScoreText();
+        UpdateRoundsText();
 
         Time.timeScale = 1f;
 
@@ -71,7 +95,6 @@ public class MatchManager : MonoBehaviour
 
     void CheckRoundWinner()
     {
-        // Синий игрок выиграл раунд
         if (player1Score >= pointsToWinRound)
         {
             player1Rounds++;
@@ -81,8 +104,6 @@ public class MatchManager : MonoBehaviour
 
             CheckMatchWinner();
         }
-
-        // Красный игрок выиграл раунд
         else if (player2Score >= pointsToWinRound)
         {
             player2Rounds++;
@@ -140,49 +161,51 @@ public class MatchManager : MonoBehaviour
     void UpdateRoundsText()
     {
         int currentRound = player1Rounds + player2Rounds + 1;
+
         if (!gameOver)
         {
-            roundsText.text = "Раунд " + currentRound +
-                              " | Раунды: " +
-                              player1Rounds + " : " + player2Rounds;
+            roundsText.text =
+                "Раунд " + currentRound +
+                " | Раунды: " +
+                player1Rounds + " : " + player2Rounds;
         }
         else
         {
-            roundsText.text = "Матч завершен | Раунды: " +
-                              player1Rounds + " : " + player2Rounds;
+            roundsText.text =
+                "Матч завершен | Раунды: " +
+                player1Rounds + " : " + player2Rounds;
         }
     }
 
     public void RestartGame()
     {
-        // Обнуляем очки
         player1Score = 0;
         player2Score = 0;
 
-        // Обнуляем выигранные раунды
         player1Rounds = 0;
         player2Rounds = 0;
 
-        // Матч снова продолжается
         gameOver = false;
 
-        // Убираем сообщение о победителе
         winnerText.text = "";
 
-        // Скрываем кнопки
         restartButton.SetActive(false);
         exitButton.SetActive(false);
 
-        // Обновляем интерфейс
         UpdateScoreText();
         UpdateRoundsText();
 
-        // Возвращаем мяч в центр и запускаем
+        Time.timeScale = 1f;
+
         ball.ResetBall();
     }
 
     public void ExitGame()
     {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
         Application.Quit();
+        #endif
     }
 }
