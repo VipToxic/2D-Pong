@@ -20,11 +20,17 @@ public class MatchManager : MonoBehaviour
 
     public GameObject startPanel;
 
+    public GameObject restartButton;
+    public GameObject exitButton;
+
     private bool gameOver = false;
 
     void Start()
     {
         winnerText.text = "";
+
+        restartButton.SetActive(false);
+        exitButton.SetActive(false);
 
         startPanel.SetActive(true);
 
@@ -102,13 +108,21 @@ public class MatchManager : MonoBehaviour
         {
             winnerText.text = "Синий игрок победил!";
             gameOver = true;
+
             StopBall();
+
+            restartButton.SetActive(true);
+            exitButton.SetActive(true);
         }
         else if (player2Rounds >= roundsToWinMatch)
         {
             winnerText.text = "Красный игрок победил!";
             gameOver = true;
+
             StopBall();
+
+            restartButton.SetActive(true);
+            exitButton.SetActive(true);
         }
     }
 
@@ -137,5 +151,38 @@ public class MatchManager : MonoBehaviour
             roundsText.text = "Матч завершен | Раунды: " +
                               player1Rounds + " : " + player2Rounds;
         }
+    }
+
+    public void RestartGame()
+    {
+        // Обнуляем очки
+        player1Score = 0;
+        player2Score = 0;
+
+        // Обнуляем выигранные раунды
+        player1Rounds = 0;
+        player2Rounds = 0;
+
+        // Матч снова продолжается
+        gameOver = false;
+
+        // Убираем сообщение о победителе
+        winnerText.text = "";
+
+        // Скрываем кнопки
+        restartButton.SetActive(false);
+        exitButton.SetActive(false);
+
+        // Обновляем интерфейс
+        UpdateScoreText();
+        UpdateRoundsText();
+
+        // Возвращаем мяч в центр и запускаем
+        ball.ResetBall();
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
