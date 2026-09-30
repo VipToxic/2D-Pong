@@ -932,7 +932,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.2816822, g: 0.10849057, b: 0.4339623, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2359,7 +2359,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5835e511da1614aa36bdeac17d507d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  moveSpeed: 10
+  moveSpeed: 13
+  minY: -4
+  maxY: 4
 --- !u!1 &1381167274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2511,7 +2513,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279c92a52f2b30e4f947f52173e614e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  moveSpeed: 10
+  moveSpeed: 13
+  minY: -4
+  maxY: 4
 --- !u!1 &1446703053
 GameObject:
   m_ObjectHideFlags: 0
@@ -2959,6 +2963,13 @@ MonoBehaviour:
   startPanel: {fileID: 522920752}
   restartButton: {fileID: 1446703053}
   exitButton: {fileID: 522940968}
+  mainCamera: {fileID: 519420031}
+  backgroundColors:
+  - {r: 0.64401317, g: 0.6603774, b: 0.046724807, a: 0}
+  - {r: 0.4716981, g: 0.037824854, b: 0.20052297, a: 0}
+  - {r: 0.86830294, g: 0.9811321, b: 0.49519405, a: 0}
+  - {r: 0.08392411, g: 0.4433962, b: 0.04392132, a: 0}
+  - {r: 0.432069, g: 0.12415449, b: 0.8490566, a: 0}
 --- !u!4 &2114144535
 Transform:
   m_ObjectHideFlags: 0

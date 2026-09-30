@@ -23,6 +23,11 @@ public class MatchManager : MonoBehaviour
     public GameObject restartButton;
     public GameObject exitButton;
 
+    public Camera mainCamera;
+    public Color[] backgroundColors;
+
+    private int currentBackground = 0;
+
     private bool gameOver = false;
 
     void Start()
@@ -48,6 +53,22 @@ public class MatchManager : MonoBehaviour
         UpdateScoreText();
         UpdateRoundsText();
     }
+
+    void ChangeBackgroundColor()
+    {
+        if (backgroundColors.Length == 0)
+            return;
+
+        mainCamera.backgroundColor = backgroundColors[currentBackground];
+
+        currentBackground++;
+
+        if (currentBackground >= backgroundColors.Length)
+        {
+            currentBackground = 0;
+        }
+    }
+
 
     public void StartGame()
     {
@@ -198,6 +219,8 @@ public class MatchManager : MonoBehaviour
         Time.timeScale = 1f;
 
         ball.ResetBall();
+
+        ChangeBackgroundColor();
     }
 
     public void ExitGame()

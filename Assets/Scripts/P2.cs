@@ -4,13 +4,9 @@ public class P2 : MonoBehaviour
 {
     public float moveSpeed;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public float minY = -4f;
+    public float maxY = 4f;
 
-    // Update is called once per frame
     void Update()
     {
         bool isPressingUp = Input.GetKey(KeyCode.UpArrow);
@@ -25,5 +21,10 @@ public class P2 : MonoBehaviour
         {
             transform.Translate(Vector2.down * Time.deltaTime * moveSpeed);
         }
+
+        // Ограничиваем положение ракетки
+        Vector3 position = transform.position;
+        position.y = Mathf.Clamp(position.y, minY, maxY);
+        transform.position = position;
     }
 }
